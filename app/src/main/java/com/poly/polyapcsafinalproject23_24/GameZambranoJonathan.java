@@ -64,12 +64,10 @@ public class GameZambranoJonathan extends GameActivity {
      **/
     private void displayStats()
     {
-        Util.clearConsole();
         System.out.println("Ship Health:\t" + player.getShipHealth());
         System.out.println("Bait Available:\t" + player.getBait());
         System.out.println("Wallet:\t\t\t$" + player.getMoney());
         System.out.println("Fish caught:\t" + player.getFishCaught());
-        Util.pauseConsole();
     }
 
     /**
@@ -77,13 +75,10 @@ public class GameZambranoJonathan extends GameActivity {
      **/
     private void chooseOption()
     {
-        Util.clearConsole();
         System.out.println("1.Head to shop and buy bait?\n2.set sail and catch fish?\n3.head to Fishmonger to sell your fish?");
-        int option = Util.enterInt(1, 3);
         if (option == 1)
         {
             System.out.println(" How much bait do you want to purchase?");
-            int amount = Util.enterInt(0, 9999);
             player.buyBait(amount);
         }
         else if (option == 2)
@@ -96,14 +91,12 @@ public class GameZambranoJonathan extends GameActivity {
             else
             {
                 player.snugged();
-                Util.pauseConsole();
             }
 
         }
         else if (option == 3)
         {
             System.out.println("How many fish do you want to sell?");
-            int amount = Util.enterInt(0, 9999);
             player.sellFish(amount);
         }
     }
@@ -115,8 +108,6 @@ public class GameZambranoJonathan extends GameActivity {
     private void endOfFishing()
     {
         System.out.println(" Womp Womp you lost, Game Over!!,");
-        Util.pauseConsole();
-        Util.clearConsole();
         run();
 
     }
