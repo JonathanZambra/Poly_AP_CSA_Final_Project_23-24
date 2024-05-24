@@ -17,6 +17,17 @@ public class GameZambranoJonathan extends GameActivity {
      **/
     public void run()
     {
+        setContentView(R.layout.activity_game_4_button);
+
+        tvTitle = findViewById(R.id.tv_title_txt);
+        tvSubtitle = findViewById(R.id.tv_subtitle);
+        tvStoryText = findViewById(R.id.tv_story);
+        ivStory = findViewById(R.id.iv_story);
+        btn1 = findViewById(R.id.btn_1);
+        btn2 = findViewById(R.id.btn_2);
+        btn3 = findViewById(R.id.btn_3);
+        btn4 = findViewById(R.id.btn_4);
+
         createPlayer();
         goFishing();
     }
@@ -27,7 +38,6 @@ public class GameZambranoJonathan extends GameActivity {
      **/
     private void createPlayer()
     {
-        Scanner scan = new Scanner(System.in);
         System.out.println("whats your name?");
         String name = scan.nextLine();
         player = new ZambranoFisherman(name);

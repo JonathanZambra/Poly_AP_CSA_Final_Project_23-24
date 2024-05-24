@@ -172,7 +172,7 @@ public class ZambranoFisherman {
      * sets the ampount of health your ship has
      * <br>Precondition: shipHealth greater than or equal to 200
      * <br>Postcondition: shipHealth set
-     * @param    shipHelath   amount of ship health you have (>=200)
+     * @param    shipHealth   amount of ship health you have (>=200)
      **/
     public void setShipHealth(int shipHealth)
     {
@@ -275,7 +275,6 @@ public class ZambranoFisherman {
         else
         {
             System.out.println("you do not have enough money");
-            Util.pauseConsole();
         }
     }
 
@@ -293,7 +292,6 @@ public class ZambranoFisherman {
             {
                 fishCaught++;
                 bait--;
-                Util.pauseConsole();
                 if (fishCaught > 3)
 
                 {
@@ -305,7 +303,6 @@ public class ZambranoFisherman {
         else
         {
             System.out.println(" You are out of bait");
-            Util.pauseConsole();
         }
     }
 
@@ -347,7 +344,6 @@ public class ZambranoFisherman {
         else
         {
             System.out.println("You do not have enough fish");
-            Util.pauseConsole();
         }
 
     }
