@@ -1,11 +1,17 @@
 package com.poly.polyapcsafinalproject23_24;
 
+import android.widget.Button;
+import android.widget.TextView;
+
 public class GameZambranoJonathan extends GameActivity {
 
     /**
      * player in game
      **/
     private ZambranoFisherman player;
+
+    TextView tvHealthVal, tvLureVal, tvFishVal, tvWalletVal, tvMain;
+    Button btn1, btn2, btn3, btn4;
 
 
     //write game down here
@@ -17,12 +23,14 @@ public class GameZambranoJonathan extends GameActivity {
      **/
     public void run()
     {
-        setContentView(R.layout.activity_game_4_button);
+        setContentView(R.layout.activity_zambrano_main);
 
-        tvTitle = findViewById(R.id.tv_title_txt);
-        tvSubtitle = findViewById(R.id.tv_subtitle);
-        tvStoryText = findViewById(R.id.tv_story);
-        ivStory = findViewById(R.id.iv_story);
+        tvMain = findViewById(R.id.tv_main);
+        tvHealthVal = findViewById(R.id.tv_health_val);
+        tvLureVal = findViewById(R.id.tv_lure_val);
+        tvFishVal = findViewById(R.id.tv_fish_val);
+        tvWalletVal = findViewById(R.id.tv_wallet_val);
+
         btn1 = findViewById(R.id.btn_1);
         btn2 = findViewById(R.id.btn_2);
         btn3 = findViewById(R.id.btn_3);
@@ -38,9 +46,7 @@ public class GameZambranoJonathan extends GameActivity {
      **/
     private void createPlayer()
     {
-        System.out.println("whats your name?");
-        String name = scan.nextLine();
-        player = new ZambranoFisherman(name);
+        player = new ZambranoFisherman("Fisherman Byron");
     }
 
 
@@ -74,6 +80,7 @@ public class GameZambranoJonathan extends GameActivity {
      **/
     private void displayStats()
     {
+        tvHealthVal.setText(""+player.getShipHealth());
         System.out.println("Ship Health:\t" + player.getShipHealth());
         System.out.println("Bait Available:\t" + player.getBait());
         System.out.println("Wallet:\t\t\t$" + player.getMoney());
