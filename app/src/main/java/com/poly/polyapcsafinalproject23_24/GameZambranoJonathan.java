@@ -1,7 +1,9 @@
 package com.poly.polyapcsafinalproject23_24;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class GameZambranoJonathan extends GameActivity {
@@ -12,7 +14,9 @@ public class GameZambranoJonathan extends GameActivity {
     private ZambranoFisherman player;
 
     TextView tvHealthVal, tvBaitVal, tvFishVal, tvWalletVal, tvMain;
-    Button btn1, btn2, btn3, btn4;
+    Button btn1, btn2, btn3;
+    ImageView ivMain;
+    private int count;
 
 
     //write game down here
@@ -32,10 +36,15 @@ public class GameZambranoJonathan extends GameActivity {
         tvFishVal = findViewById(R.id.tv_fish_val);
         tvWalletVal = findViewById(R.id.tv_wallet_val);
 
+        ivMain = findViewById(R.id.iv_main);
+
         btn1 = findViewById(R.id.btn_1);
         btn2 = findViewById(R.id.btn_2);
         btn3 = findViewById(R.id.btn_3);
-        btn4 = findViewById(R.id.btn_4);
+
+        tvMain.setText("Welcome fisherman");
+
+        ivMain.setImageResource(R.drawable.im_jonthanzambrano_starterisland);
 
         createPlayer();
         goFishing();
@@ -59,22 +68,17 @@ public class GameZambranoJonathan extends GameActivity {
      **/
     private void goFishing()
     {
-        setSail();
-        while (player.getShipHealth() >= 0 || (player.getMoney() <= 0 && player.getBait() <= 0 && player.getFishCaught() <= 0))
+        if (player.getShipHealth() >= 0 && player.getMoney() > 0 && player.getBait() > 0)
         {
             displayStats();
             chooseOption();
         }
-        endOfFishing();
+        else {
+            endOfFishing();
+        }
     }
 
-    /**
-     * method that starts the fishermans fishing and allows the fisherman to catch fish
-     **/
-    private void setSail()
-    {
-        System.out.println("Sea looks full today, shall we set sail?");
-    }
+
 
     /**
      * Displays the stats of the player before being given an option
@@ -92,17 +96,41 @@ public class GameZambranoJonathan extends GameActivity {
      **/
     private void chooseOption()
     {
-        System.out.println("1.Head to shop and buy bait?\n2.set sail and catch fish?\n3.head to Fishmonger to sell your fish?");
+        btn1.setVisibility(View.VISIBLE);
+        btn2.setVisibility(View.VISIBLE);
+        btn3.setVisibility(View.VISIBLE);
+
+        if (player.getMoney() < ZambranoFisherman.BAIT_COST) {
+            btn1.setVisibility(View.INVISIBLE);
+        } else {
+            btn1.setVisibility(View.VISIBLE);
+        }
+
+        if (player.getBait() <= 0) {
+            btn2.setVisibility(View.INVISIBLE);
+        } else {
+            btn2.setVisibility(View.VISIBLE);
+        }
+
+        if (player.getFishCaught() <= 0) {
+            btn3.setVisibility(View.INVISIBLE);
+        } else {
+            btn3.setVisibility(View.VISIBLE);
+        }
 
         btn1.setText("Head to shop and buy bait");
-        btn2.setText("set sail and catch fish?");
+        btn2.setText("Set sail and catch fish?");
+        btn3.setText("Head to Fishmonger to sell your fish?");
 
 
 
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                tvMain.setText("Here is your bait fellow fisher");
+                ivMain.setImageResource(R.drawable.im_jonathanzambrano_fishmonger);
                 player.buyBait();
+                goFishing();
 
             }
         });
@@ -110,14 +138,21 @@ public class GameZambranoJonathan extends GameActivity {
         btn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (Math.random() < (.6))
-                {
-                    System.out.println("You caught a fish!!");
-                    player.catchFish();
-                }
-                else
-                {
-                    player.snugged();
+
+                if (player.getBait() > 0) {
+                    if (Math.random() < 0.6)
+                    {
+                        ivMain.setImageResource(R.drawable.im_jonathanzambrano_fishcaught);
+                        tvMain.setText("You caught a fish!!");
+                        player.catchFish();
+                    }
+                    else
+                    {
+                        ivMain.setImageResource(R.drawable.im_jonathanzambrano_snugged);
+                        player.snugged();
+                        tvMain.setText("Darn! You've been snugged!!");
+                    }
+                    goFishing();
                 }
             }
         });
@@ -125,8 +160,10 @@ public class GameZambranoJonathan extends GameActivity {
         btn3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.out.println("How many fish do you want to sell?");
+                tvMain.setText("Pleasure doing business.");
+                ivMain.setImageResource(R.drawable.im_jonathanzambrano_fishermanshop);
                 player.sellFish();
+                goFishing();
             }
         });
     }
@@ -137,8 +174,23 @@ public class GameZambranoJonathan extends GameActivity {
      **/
     private void endOfFishing()
     {
-        System.out.println(" Womp Womp you lost, Game Over!!,");
-        run();
+        tvMain.setText("Womp Womp you lost, Game Over!!");
+        btn1.setText("Play again");
+        btn2.setText("Don't play again");
+        btn3.setVisibility(View.INVISIBLE);
+
+        btn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                run();
+            }
+        });
+        btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(GameZambranoJonathan.this, MainActivity.class));
+            }
+        });
 
     }
 }

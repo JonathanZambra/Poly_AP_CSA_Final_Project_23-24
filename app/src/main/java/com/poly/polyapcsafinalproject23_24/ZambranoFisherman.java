@@ -38,6 +38,7 @@ public class ZambranoFisherman {
     private static int numFisherman;
 
     public static final double BAIT_COST = 1.25;
+    public static final double FISH_VALUE = 5.00;
 
     /**
      *constructor that initizalizes all attributes
@@ -263,8 +264,12 @@ public class ZambranoFisherman {
      **/
     public void buyBait()
     {
-        money-= BAIT_COST;
-        bait++;
+        if (money >= BAIT_COST)
+        {
+            money-= BAIT_COST;
+            bait++;
+        }
+
     }
 
     /**
@@ -276,22 +281,11 @@ public class ZambranoFisherman {
      **/
     public void catchFish()
     {
-        if(bait > 0)
+        fishCaught++;
+        bait--;
+        if (fishCaught > 3)
         {
-            {
-                fishCaught++;
-                bait--;
-                if (fishCaught > 3)
-
-                {
-                    shipHealth -= (20.00 + 10.00 * (fishCaught - 5));
-                }
-            }
-
-        }
-        else
-        {
-            System.out.println(" You are out of bait");
+            shipHealth -= (20.00 + 10.00 * (fishCaught - 5));
         }
     }
 
@@ -303,12 +297,7 @@ public class ZambranoFisherman {
      **/
     public void snugged()
     {
-        if(bait > 0)
-        {
-
-            System.out.println("Darn! You've been snugged!!");
-            bait--;
-        }
+        bait--;
     }
 
 
@@ -319,21 +308,11 @@ public class ZambranoFisherman {
      * <br>money increased by 5
      * <br>fishCaught decreased by 1
      **/
-    public void sellFish(int amount)
+    public void sellFish()
     {
-        if (amount < 0)
-        {
-            amount = 0;
-        }
-        if (amount <= fishCaught)
-        {
-            fishCaught -= amount;
-            money += amount * 5;
-        }
-        else
-        {
-            System.out.println("You do not have enough fish");
-        }
+        money += (fishCaught * FISH_VALUE);
+        fishCaught = 0;
+
 
     }
 
