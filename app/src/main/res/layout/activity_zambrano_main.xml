@@ -122,8 +122,8 @@
 
     <TextView
         android:id="@+id/tv_lure_val"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="12dp"
+        android:layout_height="15dp"
         android:layout_marginTop="20dp"
         android:text="10"
         app:layout_constraintStart_toStartOf="@+id/guideline34"

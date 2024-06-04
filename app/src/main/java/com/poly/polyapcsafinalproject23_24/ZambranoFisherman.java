@@ -37,6 +37,8 @@ public class ZambranoFisherman {
      **/
     private static int numFisherman;
 
+    public static final double BAIT_COST = 1.25;
+
     /**
      *constructor that initizalizes all attributes
      * <br>Preconditions : name must be nonnull, all other values must be non-negative
@@ -259,23 +261,10 @@ public class ZambranoFisherman {
      * <br>money decreadsed by amount * 2
      * <br>bait increased by 1
      **/
-    public void buyBait(int amount)
+    public void buyBait()
     {
-        if (amount < 0)
-        {
-            amount = 0;
-        }
-        double baitCost = 1.25;
-        System.out.println("Bait costs $" + baitCost);
-        if (amount * baitCost < money)
-        {
-            money-= baitCost * amount;
-            bait += amount;
-        }
-        else
-        {
-            System.out.println("you do not have enough money");
-        }
+        money-= BAIT_COST;
+        bait++;
     }
 
     /**

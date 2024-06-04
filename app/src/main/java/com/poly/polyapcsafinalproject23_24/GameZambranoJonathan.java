@@ -1,5 +1,6 @@
 package com.poly.polyapcsafinalproject23_24;
 
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -10,7 +11,7 @@ public class GameZambranoJonathan extends GameActivity {
      **/
     private ZambranoFisherman player;
 
-    TextView tvHealthVal, tvLureVal, tvFishVal, tvWalletVal, tvMain;
+    TextView tvHealthVal, tvBaitVal, tvFishVal, tvWalletVal, tvMain;
     Button btn1, btn2, btn3, btn4;
 
 
@@ -27,7 +28,7 @@ public class GameZambranoJonathan extends GameActivity {
 
         tvMain = findViewById(R.id.tv_main);
         tvHealthVal = findViewById(R.id.tv_health_val);
-        tvLureVal = findViewById(R.id.tv_lure_val);
+        tvBaitVal = findViewById(R.id.tv_lure_val);
         tvFishVal = findViewById(R.id.tv_fish_val);
         tvWalletVal = findViewById(R.id.tv_wallet_val);
 
@@ -81,10 +82,9 @@ public class GameZambranoJonathan extends GameActivity {
     private void displayStats()
     {
         tvHealthVal.setText(""+player.getShipHealth());
-        System.out.println("Ship Health:\t" + player.getShipHealth());
-        System.out.println("Bait Available:\t" + player.getBait());
-        System.out.println("Wallet:\t\t\t$" + player.getMoney());
-        System.out.println("Fish caught:\t" + player.getFishCaught());
+        tvBaitVal.setText(""+player.getBait());
+        tvWalletVal.setText(""+player.getMoney());
+        tvFishVal.setText(""+player.getFishCaught());
     }
 
     /**
@@ -93,29 +93,42 @@ public class GameZambranoJonathan extends GameActivity {
     private void chooseOption()
     {
         System.out.println("1.Head to shop and buy bait?\n2.set sail and catch fish?\n3.head to Fishmonger to sell your fish?");
-        if (option == 1)
-        {
-            System.out.println(" How much bait do you want to purchase?");
-            player.buyBait(amount);
-        }
-        else if (option == 2)
-        {
-            if (Math.random() < (.6))
-            {
-                System.out.println("You caught a fish!!");
-                player.catchFish();
-            }
-            else
-            {
-                player.snugged();
-            }
 
-        }
-        else if (option == 3)
-        {
-            System.out.println("How many fish do you want to sell?");
-            player.sellFish(amount);
-        }
+        btn1.setText("Head to shop and buy bait");
+        btn2.setText("set sail and catch fish?");
+
+
+
+        btn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                player.buyBait();
+
+            }
+        });
+
+        btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (Math.random() < (.6))
+                {
+                    System.out.println("You caught a fish!!");
+                    player.catchFish();
+                }
+                else
+                {
+                    player.snugged();
+                }
+            }
+        });
+
+        btn3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println("How many fish do you want to sell?");
+                player.sellFish();
+            }
+        });
     }
 
     /**
